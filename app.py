@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pickle
 from flask import Flask, jsonify, render_template, request
-
+from flask_ngrok import run_with_ngrok
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 import h5py
@@ -38,7 +38,7 @@ def pred(usermoviereview):
 
 # webapp
 app = Flask(__name__, template_folder='./')
-
+run_with_ngrok(app)
 
 @app.route('/prediction', methods=['POST', 'GET'])
 def prediction():
@@ -47,8 +47,8 @@ def prediction():
         print(message)
         response =  pred(message)
         print(response)
-        return jsonify(response)
-    return jsonify("Input text")
+        return response
+    #return jsonify("Input text")
 
 @app.route('/')
 def main():
