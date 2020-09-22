@@ -31,9 +31,9 @@ def pred(usermoviereview):
     sentiment = loaded_model.predict(x=review_tokens_pad)
     print(sentiment)
     if sentiment[0] > 0.5:
-        sentiment_str = "You like the movie:" + "{0:.2%}".format(float(sentiment[0]))
+        sentiment_str = "Our AI system thinks You like the movie and the percentage score of liking is about : " + "{0:.2%}".format(float(sentiment[0]))
     else:
-        sentiment_str = "You didn't like the movie:" + "{0:.2%}".format(float(sentiment[0]))
+        sentiment_str = "Our AI system thinks You didn't like the movie the percentage score of liking is about : " + "{0:.2%}".format(float(sentiment[0]))
     return sentiment_str
 
 # webapp
@@ -46,7 +46,7 @@ def prediction():
         message = request.form['message']
         print(message)
         response =  pred(message)
-        print(response)
+        print(type(response))
         return response
     #return jsonify("Input text")
 
@@ -56,4 +56,4 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
